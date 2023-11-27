@@ -29,7 +29,7 @@ RUN pip3 install \
         xformers \
         triton \
         --index-url https://download.pytorch.org/whl/cu118
-    &&pip3 install \
+    && pip3 install \
         diffusers \
         transformers \
         accelerate
