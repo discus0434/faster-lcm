@@ -2,6 +2,10 @@
 
 Faster LCM is a script which enables to do style-transfer images with more than 30fps.
 
+<p align="center">
+  <img src="./assets/seems_fast.gif" width=80%>
+</p>
+
 ## Installation
 
 Build the docker image and run it:
