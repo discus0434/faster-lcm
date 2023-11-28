@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         python3-dev \
         python3-pip \
-        libglib2.0-0
+        libglib2.0-0 \
     && apt clean && rm -rf /var/lib/apt/lists/* \
     && ln -s /usr/bin/python3 /usr/bin/python
 
@@ -28,7 +28,7 @@ RUN pip3 install \
         torchvision \
         xformers \
         triton \
-        --index-url https://download.pytorch.org/whl/cu118
+        --index-url https://download.pytorch.org/whl/cu118 \
     && pip3 install \
         diffusers \
         transformers \
