@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 import numpy as np
@@ -35,6 +36,9 @@ class FastLCM:
         )
         self._warm_up()
 
+        if self.config.save_image:
+            os.makedirs("assets/output", exist_ok=True)
+
     def run(self):
         """
         Runs 100 times the faster LCM pipeline, and calculates the
@@ -57,7 +61,8 @@ class FastLCM:
             ).images[0]
             times.append(time.time() - start_time)
 
-            image.save(f"assets/output/output_{i}.png")
+            if self.config.save_image:
+                image.save(f"assets/output/output_{i}.png")
 
         print(f"Average time: {np.mean(times)}")
         print(f"FPS: {1 / np.mean(times)}")

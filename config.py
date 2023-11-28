@@ -2,7 +2,6 @@ from dataclasses import dataclass
 
 import torch
 
-
 @dataclass
 class Config:
     """
@@ -20,14 +19,14 @@ class Config:
     # Data type
     dtype: torch.dtype = torch.float16
     # LCMScheduler parameters
-    config_path: str = "/app/assets/config.json"
+    config_path: str = "assets/config.json"
     # Whether to compile the model
     compile: bool = True
     ####################################################################
     # Inference configuration
     ####################################################################
     # Image to transfer
-    image_path: str = "/app/assets/sample.png"
+    image_path: str = "assets/sample.png"
     # Generation resolution
     resolution: int = 512
     # Prompt
