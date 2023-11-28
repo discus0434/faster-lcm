@@ -432,12 +432,13 @@ class LCMScheduler(SchedulerMixin, ConfigMixin):
 
         self._step_index = None
 
-    def get_scalings_for_boundary_condition_discrete(self, timestep):
-        self.sigma_data = 0.5  # Default: 0.5
+    def get_scalings_for_boundary_condition_discrete(
+        self, timestep: torch.Tensor, sigma: torch.Tensor
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
         scaled_timestep = timestep * self.config.timestep_scaling
 
-        c_skip = self.sigma_data**2 / (scaled_timestep**2 + self.sigma_data**2)
-        c_out = scaled_timestep / (scaled_timestep**2 + self.sigma_data**2) ** 0.5
+        c_skip = sigma**2 / (scaled_timestep**2 + sigma**2)
+        c_out = scaled_timestep / (scaled_timestep**2 + sigma**2) ** 0.5
         return c_skip, c_out
 
     def step(
@@ -479,13 +480,14 @@ class LCMScheduler(SchedulerMixin, ConfigMixin):
         sigma = self.sigmas[self.step_index]
 
         # # 1. Get scalings for boundary conditions
-        c_skip, c_out = self.get_scalings_for_boundary_condition_discrete(timestep)
+        c_skip, c_out = self.get_scalings_for_boundary_condition_discrete(
+            timestep, sigma=sigma
+        )
 
         # 2. compute predicted original sample (x_0) from sigma-scaled predicted noise
         if self.config.prediction_type == "epsilon":
             predicted_original_sample = sample - sigma * model_output
         elif self.config.prediction_type == "v_prediction":
-            # * c_out + input * c_skip
             predicted_original_sample = model_output * (
                 -sigma / (sigma**2 + 1) ** 0.5
             ) + (sample / (sigma**2 + 1))
@@ -506,7 +508,6 @@ class LCMScheduler(SchedulerMixin, ConfigMixin):
                 -self.config.clip_sample_range, self.config.clip_sample_range
             )
 
-        denoised = predicted_original_sample
         # 4. Denoise model output using boundary conditions
         denoised = c_out * predicted_original_sample + c_skip * sample
 

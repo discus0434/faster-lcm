@@ -45,11 +45,14 @@ class FastLCM:
             start_time = time.time()
             image = self.lcm_pipeline(
                 image=self._image,
-                num_inference_steps=21,
-                strength=0.09,
-                guidance_scale=1,
                 prompt_embeds=self._prompt_embedding,
-                original_inference_steps=50,
+                num_inference_steps=int(
+                    self.config.num_inference_steps / self.config.strength
+                )
+                + 1,
+                strength=self.config.strength,
+                guidance_scale=self.config.guidance_scale,
+                original_inference_steps=self.config.original_inference_steps,
                 output_type="pil",
             ).images[0]
             times.append(time.time() - start_time)
@@ -112,10 +115,13 @@ class FastLCM:
             self.lcm_pipeline(
                 image=self._image,
                 prompt_embeds=self._prompt_embedding,
-                num_inference_steps=21,
-                strength=0.1,
-                guidance_scale=1,
-                original_inference_steps=50,
+                num_inference_steps=int(
+                    self.config.num_inference_steps / self.config.strength
+                )
+                + 1,
+                strength=self.config.strength,
+                guidance_scale=self.config.guidance_scale,
+                original_inference_steps=self.config.original_inference_steps,
             )
 
     def _precompute_prompt_embedding(self) -> torch.FloatTensor:
