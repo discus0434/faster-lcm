@@ -10,7 +10,7 @@
     "num_train_timesteps": 1000,
     "timestep_scaling": 1e13,
     "original_inference_steps": 50,
-    "prediction_type": "v_prediction",
+    "prediction_type": "epsilon",
     "rescale_betas_zero_snr": false,
     "sample_max_value": 1.0,
     "set_alpha_to_one": false,
