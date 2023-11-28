@@ -1,6 +1,6 @@
 # Faster LCM
 
-Faster LCM is a script which enables to do style-transfer images with more than 30fps.
+Faster LCM is a script which enables to transfer image styles at more than 30fps.
 
 <p align="center">
   <img src="./assets/seems_fast.gif" width=80%>
