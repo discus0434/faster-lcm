@@ -108,7 +108,6 @@ class FastLCM:
         """
         Warms up the LCM pipeline.
         """
-        # warm up
         for _ in range(3):
             self.lcm_pipeline(
                 image=self._image,
