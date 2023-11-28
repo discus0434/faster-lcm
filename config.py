@@ -40,3 +40,7 @@ class Config:
     guidance_scale: float = 1
     # Original inference steps if not using LCM
     original_inference_steps: int = 50
+    # Whether to save the image. If True, the image will be saved to
+    # assets/output/output_{i}.png, where i is the iteration number.
+    # False to disable, which makes the script run faster.
+    save_image: bool = False

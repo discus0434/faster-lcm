@@ -57,7 +57,6 @@ class FastLCM:
             ).images[0]
             times.append(time.time() - start_time)
 
-            print("num_inference_steps", self.lcm_pipeline._num_timesteps)
             image.save(f"assets/output/output_{i}.png")
 
         print(f"Average time: {np.mean(times)}")
